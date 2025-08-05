@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Evaluate New Supplier</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f9f9f9;
+        }
+
+        .navbar {
+            background: linear-gradient(to right, #7b2ff7, #f107a3);
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 0 10px;
+        }
+
+        .container {
+            padding: 40px;
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            margin-top: 30px;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background: linear-gradient(to right, #7b2ff7, #f107a3);
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .result-section {
+            margin-top: 40px;
+        }
+
+        .chart-container {
+            margin-top: 30px;
+        }
+
+        .back-button {
+            display: block;
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        .back-button a {
+            text-decoration: none;
+            color: #555;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <div><a href="/">TruSupply</a></div>
+        <div>
+            <a href="/evaluate_supplier">Evaluate</a>
+            <a href="/dashboard">Dashboard</a>
+            <a href="/view_history">Evaluation History</a>
+            <a href="/feedback">Feedback</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>Evaluate New Supplier</h2>
+
+        <form method="POST" action="/evaluate_supplier">
+            <label for="supplier_name">Supplier Name</label>
+            <input type="text" name="supplier_name" required>
+
+            <label for="financial_score">Financial Score</label>
+            <input type="number" name="financial_score" min="0" max="100" required>
+
+            <label for="quality_score">Quality Score</label>
+            <input type="number" name="quality_score" min="0" max="100" required>
+
+            <label for="delivery_score">Delivery Score</label>
+            <input type="number" name="delivery_score" min="0" max="100" required>
+
+            <label for="sustainability_score">Sustainability Score</label>
+            <input type="number" name="sustainability_score" min="0" max="100" required>
+
+            <label for="compliance_score">Compliance Score</label>
+            <input type="number" name="compliance_score" min="0" max="100" required>
+
+            <button type="submit">Evaluate Supplier</button>
+        </form>
+
+        {% if risk_score %}
+        <div class="result-section">
+            <h3>Evaluation Result for <strong>{{ supplier_name }}</strong></h3>
+            <p><strong>Risk Score:</strong> {{ risk_score }}</p>
+            <p><strong>Risk Level:</strong> {{ risk_level }}</p>
+
+            <div class="chart-container">
+                <div id="pieChart"></div>
+                <div id="barChart"></div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        {% if pieJSON %}
+            var pieData = {{ pieJSON | safe }};
+            Plotly.newPlot('pieChart', pieData.data, pieData.layout);
+        {% endif %}
+        {% if barJSON %}
+            var barData = {{ barJSON | safe }};
+            Plotly.newPlot('barChart', barData.data, barData.layout);
+        {% endif %}
+    </script>
+
+</body>
+</html>

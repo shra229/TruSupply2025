@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Evaluation History</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background: linear-gradient(to right, #7b2ff7, #f107a3);
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 0 10px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 30px;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+
+        th {
+            background: #f107a3;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background: #f2f2f2;
+        }
+
+        tr:hover {
+            background: #fce3f4;
+        }
+
+        .no-data {
+            text-align: center;
+            font-size: 18px;
+            color: #777;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <div><a href="/">TruSupply</a></div>
+        <div>
+            <a href="/evaluate_supplier">Evaluate</a>
+            <a href="/dashboard">Dashboard</a>
+            <a href="/view_history">Evaluation History</a>
+            <a href="/feedback">Feedback</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>Evaluation History</h2>
+
+        {% if data and data|length > 0 %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Supplier Name</th>
+                        <th>Financial Score</th>
+                        <th>Quality Score</th>
+                        <th>Delivery Score</th>
+                        <th>Sustainability Score</th>
+                        <th>Compliance Score</th>
+                        <th>Risk Score</th>
+                        <th>Risk Level</th>
+                        <th>Evaluation Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in data %}
+                        <tr>
+                            <td>{{ row['Supplier Name'] }}</td>
+                            <td>{{ row['Financial Score'] }}</td>
+                            <td>{{ row['Quality Score'] }}</td>
+                            <td>{{ row['Delivery Score'] }}</td>
+                            <td>{{ row['Sustainability Score'] }}</td>
+                            <td>{{ row['Compliance Score'] }}</td>
+                            <td>{{ row['Risk Score'] }}</td>
+                            <td>{{ row['Risk Level'] }}</td>
+                            <td>{{ row['Evaluation Date'] }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="no-data">No evaluation history found.</p>
+        {% endif %}
+    </div>
+
+</body>
+</html>

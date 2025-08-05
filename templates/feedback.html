@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Feedback - TruSupply</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to right, #fdfbfb, #ebedee);
+            margin: 0;
+            color: #333;
+        }
+        .navbar {
+            background: linear-gradient(to right, #ff8a00, #e52e71);
+            padding: 1em;
+            text-align: center;
+        }
+        .navbar a {
+            margin: 0 15px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #e52e71;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin: 10px 0 5px;
+        }
+        input, textarea {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 12px;
+            background: linear-gradient(to right, #ff8a00, #e52e71);
+            color: white;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        button:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="/">Home</a>
+        <a href="/evaluate_supplier">Evaluate New Supplier</a>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/view_history">Evaluation History</a>
+        <a href="/feedback">Feedback</a>
+    </div>
+
+    <div class="container">
+        <h2>We Value Your Feedback</h2>
+        <form method="POST" action="/feedback">
+            <label for="name">Name</label>
+            <input type="text" name="name" required>
+
+            <label for="email">Email</label>
+            <input type="email" name="email" required>
+
+            <label for="comments">Comments</label>
+            <textarea name="comments" rows="5" required></textarea>
+
+            <button type="submit">Submit Feedback</button>
+        </form>
+    </div>
+</body>
+</html>
